@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Ranh giới tỉnh Bà Rịa - Vũng Tàu</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.22/"></script>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/GeoJSONLayer"
+    ], function (Map, MapView, GeoJSONLayer) {
+
+      var map = new Map({
+        basemap: "topo-vector"
+      });
+
+      var point_template_area = {
+                    title: "{Name}",
+                    content: "Khu vực này ở <b>{Location}</b>."
+                };
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [107.275166, 10.576315], // Tọa độ trung tâm tỉnh Bà Rịa - Vũng Tàu
+        zoom: 11
+      });
+
+      var vungtau = new GeoJSONLayer({
+        url: "./vungtau.json", 
+        renderer: {
+          type: "unique-value",
+          field: "NAME_2", // Sử dụng tên trường chính xác
+          uniqueValueInfos: [
+            {
+              value: "Vũng Tàu",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(166, 55, 55, 0.13)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Xuyên Mộc",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(124, 126, 60, 0.34)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Đất Đỏ",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(58, 181, 142, 0.08)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Long Điền",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(68, 78, 205, 0.41)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Châu Đức",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(81, 136, 18, 0.38)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Bà Rịa",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(202, 40, 110, 0.41)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Phú Mỹ",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(65, 17, 128, 0.46)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            {
+              value: "Côn Đảo",
+              symbol: {
+                type: "simple-fill",
+                color: "rgba(15, 19, 105, 0.27)",
+                style: "dash-dot",
+                outline: {
+                  width: 1,
+                  color: "black"
+                }
+              }
+            },
+            // Thêm các uniqueValueInfos khác nếu cần
+          ],
+        },
+        popupTemplate: {  
+          title: "{Name_1}",  // Sử dụng tên trường chính xác
+          content: "Đây là {Type_2} {NAME_2}. <br>  Dân số: {Danso} người. <br> Diện tích: {Dientich} km2."  
+        }
+      });
+    
+      map.add(vungtau);
+
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
